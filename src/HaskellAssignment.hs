@@ -12,9 +12,9 @@ instance Show Found where
   show NoMatch = "No match found!"
 findFirst :: Eq a => (a -> Bool) -> [a] -> Found
 
-findFirst needle haystack@(x : xs) -- takes 2 parameter, needle(to "find" the item of interest) and haystack(list)
-  | needle x = Match 0         -- If the first element satisfies the predicate, return 'Match' at index 0
-  | otherwise = case findFirst needle xs of  --If the first element does not satisfy the predicate, recursively search in the remaining elements
+findFirst needle haystack@(item : list) -- takes 2 parameter, needle(to "find" the item of interest) and haystack(list)
+  | needle item = Match 0         -- If the first element satisfies the predicate, return 'Match' at index 0
+  | otherwise = case findFirst needle list of  --If the first element does not satisfy the predicate, recursively search in the remaining elements
                   NoMatch -> NoMatch  -- If no match is found in the remaining elements, return 'NoMatch'
                   Match index -> Match (index + 1)  -- If a match is found, return 'Match' at the next index
 findFirst _ [] = NoMatch --If the list is empty, return 'NoMatch'
